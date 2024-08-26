@@ -10,8 +10,10 @@ public class PlayerMovement : MonoBehaviour
     private NavMeshAgent myAgent;
 
     // Player move stat
-    [SerializeField] float moveRange;
-    private bool isMoving = false;
+    [SerializeField] float moveMeter;
+    [SerializeField] float moveFactor;
+    [SerializeField] float moveRefill;
+    public bool isMoving = false;
 
     // Start is called before the first frame update
     void Start()
@@ -27,34 +29,50 @@ public class PlayerMovement : MonoBehaviour
             Ray myRay = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hitInfo;
 
-            if(Physics.Raycast (myRay, out hitInfo, 100, clickableSurface))
+            if(Physics.Raycast(myRay, out hitInfo, 100, clickableSurface))
             {
                 myAgent.SetDestination(hitInfo.point);
-                isMoving = true;
+                
             }
-            if(myAgent.isStopped == true)
-            {
-                isMoving = false;
-            }
-            /*if (!myAgent.pathPending)
-            {
-                if (myAgent.remainingDistance <= myAgent.stoppingDistance)
-                {
-                    if (!myAgent.hasPath || myAgent.velocity.sqrMagnitude == 0f)
-                    {
-                        isMoving = false;
-                    }
-                }
-            }*/
         }
-        if(isMoving)
+
+        if(myAgent.remainingDistance > 0)
         {
-            moveRange -= Mathf.Abs(myAgent.transform.position.z);
-            if (moveRange <= 0)
+            isMoving = true;
+        }
+        if(myAgent.remainingDistance <= 0)
+        {
+            isMoving = false;
+        }
+
+        if (isMoving)
+        {
+            MoveMeter();
+        }
+        if(moveMeter <= 0)
+        {
+            if(Input.GetKeyDown(KeyCode.Space))
             {
-                myAgent.isStopped = true;
+                moveMeter = moveRefill;
             }
         }
         
     }
+
+    void MoveMeter()
+    {
+        moveMeter -= moveFactor * Time.deltaTime;
+        if(moveMeter <= 0)
+        {
+            myAgent.SetDestination(myAgent.transform.position);
+            moveMeter *= 0;
+        }
+    }
+
+    private IEnumerator RefillMeter()
+    {
+        yield return new WaitForSeconds(2);
+        moveMeter = moveRefill;
+    }
 }
+
