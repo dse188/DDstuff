@@ -10,9 +10,9 @@ public class PlayerMovement : MonoBehaviour
     private NavMeshAgent myAgent;
 
     // Player move stat
-    [SerializeField] float moveMeter;
-    [SerializeField] float moveFactor;
-    [SerializeField] float moveRefill;
+    public float moveMeter;
+    public float moveFactor;
+    public float moveRefill;
     public bool isMoving = false;
 
     // Start is called before the first frame update
@@ -49,13 +49,13 @@ public class PlayerMovement : MonoBehaviour
         {
             MoveMeter();
         }
-        if(moveMeter <= 0)
+        /*if(moveMeter <= 0)
         {
-            if(Input.GetKeyDown(KeyCode.Space))
+            if(Input.GetKeyDown(KeyCode.Space))     //Simulate the start of a turn. (Movement/Action refilled)
             {
                 moveMeter = moveRefill;
             }
-        }
+        }*/
         
     }
 
@@ -67,6 +67,16 @@ public class PlayerMovement : MonoBehaviour
             myAgent.SetDestination(myAgent.transform.position);
             moveMeter *= 0;
         }
+    }
+
+    public void MoveRefill()
+    {
+        moveMeter = moveRefill;
+    }
+
+    public void DepleteMoveMeter()
+    {
+        moveMeter = 0;
     }
 
     private IEnumerator RefillMeter()
