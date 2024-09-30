@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using TMPro;
+using UnityEngine.UI;
 
 public class TurnManager : MonoBehaviour
 {
@@ -10,6 +12,10 @@ public class TurnManager : MonoBehaviour
     [SerializeField] private bool isTurnActive = false;
 
     public CinemachineVirtualCamera cinemachineCam;
+
+    //UI
+    [SerializeField] private TextMeshProUGUI turnText;
+    [SerializeField] private Button endTurnButton = null;
 
     // Start is called before the first frame update
     void Start()
@@ -29,10 +35,7 @@ public class TurnManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(isTurnActive && Input.GetKeyDown(KeyCode.Space))
-        {
-            EndTurn();
-        }
+
     }
 
     void StartTurn()
@@ -42,16 +45,17 @@ public class TurnManager : MonoBehaviour
             currentPlayerIndex = 0;     //Reset turn cycle
         }
 
+        StartCoroutine(ShowText());
+        //StartCoroutine(FadeText());
+
         Debug.Log($"It's {players[currentPlayerIndex].name}'s turn!");
         isTurnActive = true;
 
         //Enable player's control for their turn. (Reset the player's move meter)
-        //players[currentPlayerIndex].GetComponent<PlayerMovement>().moveMeter = 
         players[currentPlayerIndex].GetComponent<PlayerMovement>().MoveRefill();
 
         //Make the Cinemachine camera follow and look at the current player.
         cinemachineCam.Follow = players[currentPlayerIndex].transform;
-        //cinemachineCam.LookAt = players[currentPlayerIndex].transform;
     }
 
     public void EndTurn()
@@ -67,5 +71,20 @@ public class TurnManager : MonoBehaviour
         //Next player's turn
         currentPlayerIndex++;
         StartTurn();
+    }
+
+    private IEnumerator ShowText()
+    {
+        yield return new WaitForSeconds(0.5f);
+        turnText.enabled = true;
+        turnText.text = players[currentPlayerIndex].name + "'s turn";
+        yield return StartCoroutine(FadeText());
+    }
+
+    private IEnumerator FadeText()
+    {
+        yield return new WaitForSeconds(1);
+        turnText.enabled = false;
+
     }
 }

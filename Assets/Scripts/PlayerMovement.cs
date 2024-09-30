@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] LayerMask clickableSurface;
 
-    private NavMeshAgent myAgent;
+    public NavMeshAgent myAgent;
 
     // Player move stat
     public float moveMeter;
@@ -24,23 +24,28 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+        PlayerMove();
+    }
+
+    public void PlayerMove()
+    {
+        if (Input.GetMouseButtonDown(0))
         {
             Ray myRay = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hitInfo;
 
-            if(Physics.Raycast(myRay, out hitInfo, 100, clickableSurface))
+            if (Physics.Raycast(myRay, out hitInfo, 100, clickableSurface))
             {
                 myAgent.SetDestination(hitInfo.point);
-                
+
             }
         }
 
-        if(myAgent.remainingDistance > 0)
+        if (myAgent.remainingDistance > 0)
         {
             isMoving = true;
         }
-        if(myAgent.remainingDistance <= 0)
+        if (myAgent.remainingDistance <= 0)
         {
             isMoving = false;
         }
@@ -49,15 +54,8 @@ public class PlayerMovement : MonoBehaviour
         {
             MoveMeter();
         }
-        /*if(moveMeter <= 0)
-        {
-            if(Input.GetKeyDown(KeyCode.Space))     //Simulate the start of a turn. (Movement/Action refilled)
-            {
-                moveMeter = moveRefill;
-            }
-        }*/
-        
     }
+
 
     void MoveMeter()
     {
