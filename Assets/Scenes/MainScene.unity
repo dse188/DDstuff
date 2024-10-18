@@ -1201,6 +1201,7 @@ GameObject:
   - component: {fileID: 389650552}
   - component: {fileID: 389650553}
   - component: {fileID: 389650554}
+  - component: {fileID: 389650555}
   m_Layer: 0
   m_Name: Player3
   m_TagString: Untagged
@@ -1366,6 +1367,20 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &389650555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 389650547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8e503eacf25e594ea995c495858c48b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  statsObject: {fileID: 11400000, guid: a7d16144a535ad54da116d6c5e47a7be, type: 2}
+  weapon: {fileID: 11400000, guid: 00e8a49b2a65b0e4cb9d92ef1186d045, type: 2}
 --- !u!1 &393903028
 GameObject:
   m_ObjectHideFlags: 0
@@ -2550,7 +2565,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e935b8fe12a60af4bbf0947751f1a3bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1731246991}
+  players:
+  - {fileID: 1731246991}
+  - {fileID: 1144153910}
+  - {fileID: 389650547}
   enemies:
   - {fileID: 1917879498}
   turnManager: {fileID: 180455384}
@@ -2750,6 +2768,7 @@ GameObject:
   - component: {fileID: 1144153915}
   - component: {fileID: 1144153916}
   - component: {fileID: 1144153917}
+  - component: {fileID: 1144153918}
   m_Layer: 0
   m_Name: Player2
   m_TagString: Untagged
@@ -2915,6 +2934,20 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1144153918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1144153910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8e503eacf25e594ea995c495858c48b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  statsObject: {fileID: 11400000, guid: 1dbde2065ce0c1046a667359ba9bc9b9, type: 2}
+  weapon: {fileID: 11400000, guid: 3fb145f552bfd0942be4f157423041f6, type: 2}
 --- !u!1 &1178283064
 GameObject:
   m_ObjectHideFlags: 0
@@ -4351,7 +4384,6 @@ GameObject:
   - component: {fileID: 1731246997}
   - component: {fileID: 1731246998}
   - component: {fileID: 1731246999}
-  - component: {fileID: 1731247000}
   m_Layer: 7
   m_Name: Player1
   m_TagString: Untagged
@@ -4531,23 +4563,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   statsObject: {fileID: 11400000, guid: 26f50ae1a4292ee46810478695754f86, type: 2}
   weapon: {fileID: 11400000, guid: d0606151ae1af0d468197e286a0938e2, type: 2}
---- !u!114 &1731247000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1731246991}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e935b8fe12a60af4bbf0947751f1a3bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  enemies:
-  - {fileID: 1917879498}
-  turnManager: {fileID: 0}
-  enemyCurrentHealth: 0
 --- !u!1 &1747226407
 GameObject:
   m_ObjectHideFlags: 0

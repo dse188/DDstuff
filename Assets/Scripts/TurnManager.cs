@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class TurnManager : MonoBehaviour
 {
     [SerializeField] private List<GameObject> players;
-    [SerializeField] private int currentPlayerIndex = 0;
+    [SerializeField] public int currentPlayerIndex = 0;
     [SerializeField] public bool isTurnActive = false;
 
     public CinemachineVirtualCamera cinemachineCam;
@@ -38,7 +38,8 @@ public class TurnManager : MonoBehaviour
 
     }
 
-    public bool PlayerTurnActive(GameObject playerObj)
+    // For use of other Scripts. Checks whether it's the current Player's turn.
+    public bool PlayerTurnActive(GameObject playerObj)  
     {
         if(players[currentPlayerIndex] == playerObj && isTurnActive)
         {

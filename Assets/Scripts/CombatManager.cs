@@ -5,11 +5,12 @@ using UnityEngine;
 public class CombatManager : MonoBehaviour
 {
 
-    [SerializeField] GameObject player;
+    [SerializeField] List<GameObject> players;
     [SerializeField] List<GameObject> enemies;
     private float playerEnemyDistance;
     private bool isInRange;
     private int enemyIndex = 0;
+    private int playerIndex = 0;
     private WeaponStats playerWeapon;
 
     [SerializeField]private TurnManager turnManager;
@@ -21,13 +22,18 @@ public class CombatManager : MonoBehaviour
 
     private void Start()
     {
-        //player = GetComponent<GameObject>();
         enemyCurrentHealth = enemies[enemyIndex].GetComponent<PlayerStatus>().getHealth();
-        playerWeaponDamage = player.GetComponent<PlayerStatus>().getWeaponDamage();
-        playerWeapon = player.GetComponent<PlayerStatus>().weapon;
+
+        playerWeaponDamage = players[playerIndex].GetComponent<PlayerStatus>().getWeaponDamage();
+        playerWeapon = players[playerIndex].GetComponent<PlayerStatus>().weapon;
+
     }
     private void Update()
     {
+        playerIndex = turnManager.currentPlayerIndex;
+        playerWeaponDamage = players[playerIndex].GetComponent<PlayerStatus>().getWeaponDamage();
+        playerWeapon = players[playerIndex].GetComponent<PlayerStatus>().weapon;
+
         CheckRange();
     }
 
@@ -35,7 +41,7 @@ public class CombatManager : MonoBehaviour
     {
         foreach(GameObject enemy in enemies)
         {
-            playerEnemyDistance = Vector3.Distance(player.transform.position, enemy.transform.position);
+            playerEnemyDistance = Vector3.Distance(players[playerIndex].transform.position, enemy.transform.position);
 
             if (playerWeapon.weaponRange >= playerEnemyDistance)
             {
@@ -50,7 +56,7 @@ public class CombatManager : MonoBehaviour
 
     public void Attack()
     {
-        if(turnManager.PlayerTurnActive(player) && isInRange)
+        if(turnManager.PlayerTurnActive(players[playerIndex]) && isInRange)
         {
             enemyCurrentHealth -= playerWeaponDamage;
             Debug.Log("Enemy attacked! Enemy current health is: " + enemyCurrentHealth);

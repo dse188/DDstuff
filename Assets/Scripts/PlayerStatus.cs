@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerStatus : MonoBehaviour
 {
     [SerializeField] Stats_SO statsObject;
-    [SerializeField]public WeaponStats weapon;
+    [SerializeField] public WeaponStats weapon;
 
     private void Start()
     {
