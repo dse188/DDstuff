@@ -9,7 +9,7 @@ public class TurnManager : MonoBehaviour
 {
     [SerializeField] private List<GameObject> players;
     [SerializeField] private int currentPlayerIndex = 0;
-    [SerializeField] private bool isTurnActive = false;
+    [SerializeField] public bool isTurnActive = false;
 
     public CinemachineVirtualCamera cinemachineCam;
 
@@ -36,6 +36,15 @@ public class TurnManager : MonoBehaviour
     void Update()
     {
 
+    }
+
+    public bool PlayerTurnActive(GameObject playerObj)
+    {
+        if(players[currentPlayerIndex] == playerObj && isTurnActive)
+        {
+            return true;
+        }
+        return false;
     }
 
     void StartTurn()
